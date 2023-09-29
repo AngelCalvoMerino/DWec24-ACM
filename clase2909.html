@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <title>Ejercicio clase 2909</title>
+    </head>
+    <body>
+        <script>
+            var nombre=prompt("Cual es tu nombre");
+            console.log("Hola " + nombre);
+
+
+            console.log([567].toString());
+
+            var numero=9.99;
+            console.log(numero.toFixed(0));
+            console.log(numero.toFixed(1));
+            console.log(numero.toFixed(2));
+            console.log(numero.toFixed(3));
+            //console.log(numero.toPrecision(0));
+            //console.log(numero.toPrecision(1));
+            //console.log(numero.toPrecision(2));
+            //console.log(numero.toPrecision(3));
+
+            var formatoCorto = new Date("11/23/2022");
+            var formatoLargo = new Date("Aug 17 2022");
+            var formatoCompleto = new Date("Mon, Jun 20 2022 15:42:32 GMT+0100 (W. Euro standard Time");
+            var formatoISO = new Date("2022/08/18");
+            console.log(formatoCorto);
+            console.log(formatoLargo);
+            console.log(formatoCompleto);
+            console.log(formatoISO);
+            //document.getElementById("fecha").innerHTML = Date();
+
+            //texto.innerHTML=miFecha.getHours()+":"+miFecha.getMinutes()+":"+miFecha.getSeconds();
+
+            const cuadrado = function(value){
+                return value *value;
+            }
+            function aplica_fn(dato, funcion_a_aplicar){
+                return funcion_a_aplicar(dato);
+            }
+            aplica_fn(3, cuadrado);
+
+
+            function tablaMultiplicar(tabla, fin = 10){
+                for(i=0; i<=fin; i++)
+                console.log(tabla, "x", i, "=", tabla*i);
+            }
+            tablaMultiplicar(2);
+            tablaMultiplicar(6,20);
+
+            function suma(){
+                var resultado=0;
+                for(i=0; arguments.length; i++)
+                resultado += arguments[i];
+            }
+            console.log(resultado);
+
+        </script>
+    </body>
+</html>
