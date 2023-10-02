@@ -1,0 +1,30 @@
+<html>
+<body>
+<script>
+    var diHola = (name) => `¡Hola $(name)!`
+        var diAdios = (name) => {
+            return `Adios $(name)`
+        }
+
+        console.log(diHola('Cris'))
+        console.log(diAdios('Cris'))
+</script>
+
+<script>
+    let res= (base, exponente) => {
+        resultado = base;
+            
+        for(i=1; i<exponente; i++){
+        resultado*=base;
+        }
+        return resultado;
+              
+    }
+    let base=prompt("base");
+    let exponente=prompt("exponente");
+    alert(base+"^"+exponente+"="+res(base, exponente))
+    console.log(res)
+</script>
+</body>
+</html>
+
