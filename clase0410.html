@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <title>Ejercicios La Peliculera</title>
+    </head>
+    <body>
+        <script>
+            //ej1
+            var nombre = prompt("Nombre");
+            while(!isNaN(nombre) || nombre == null){
+                nombre = prompt("Nombre");
+            }
+            
+            //ej2
+            var edad = parseInt(prompt("Edad"));
+            while(isNaN(edad) || edad == null){
+                edad = parseInt(prompt("Edad"));
+            }
+            
+            //ej3
+            var cartelera = ["Spider Man", "Superman", "Dragon Ball Super", "La era de hielo", "18videos"];
+            alert("Escoge una película: " + cartelera);
+            var pelicula = prompt("Película");
+            while(cartelera.indexOf(pelicula) == -1 || pelicula == null){
+                pelicula = prompt("Película");
+            }
+            
+            //ej4
+            if(edad <= 17 && pelicula == "18videos"){
+                alert("No puedes ver esa película, escoge otra");
+                var pelicula = prompt("Película");
+                while(cartelera.indexOf(pelicula) == -1 || pelicula == null || pelicula == ("18videos")){
+                    pelicula = prompt("Película");
+                }
+            }
+            //ej5
+            var precio = 8.5;
+            var comidaybebida = ["caramelos", "refresco", "palomitas", "perrito", "agua"];
+            var descuento;
+            var alimentacion;
+            if(edad <= 17){
+                descuento = 0.5;
+                precio *= descuento;
+                
+            }
+            console.log("Nombre: " + nombre);
+            console.log("Edad: " + edad);
+            console.log("Película: " + pelicula);
+            console.log("Precio: " + precio);
+        </script>
+    </body>
+</html>
