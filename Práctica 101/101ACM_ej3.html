@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>Ejercicio 3</title>
+    </head>
+    <body>
+        <script>
+            function saludar(){
+                var saludo="Hola";
+                window.alert(saludo);
+            }
+            saludar();
+            //window.alert(saludo);
+
+            var despedida="Adiós";
+            function despedir(){
+                window.alert(despedida);
+            }
+            despedir();
+            window.alert(despedida);
+
+            var variable="1";
+            function ámbito(){
+                var variable="2";
+                window.alert(variable);
+            }
+            ámbito();
+            window.alert(variable);
+
+            var global="Variable global";
+            function redefinir(){
+                global="Variable global redefinida";
+                window.alert(global);
+            }
+            redefinir();
+            window.alert(global);
+        </script>
+    </body>
+</html>
