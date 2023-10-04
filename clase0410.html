@@ -4,6 +4,7 @@
     </head>
     <body>
         <script>
+
             //ej1
             var nombre = prompt("Nombre");
             while(!isNaN(nombre) || nombre == null){
@@ -36,16 +37,56 @@
             var precio = 8.5;
             var comidaybebida = ["caramelos", "refresco", "palomitas", "perrito", "agua"];
             var descuento;
-            var alimentacion;
+            var regalo;
             if(edad <= 17){
                 descuento = 0.5;
                 precio *= descuento;
-                
+                regalo = comidaybebida[0] +", " + comidaybebida[1];
             }
+
+            //ej6
+            if(edad >= 18 && edad <= 25){
+                regalo = comidaybebida[2] + ", " + comidaybebida[3] + ", " + comidaybebida[1];
+            }
+
+            //ej7
+            if(edad >= 26 && edad <= 35){
+                descuento = 0.1;
+                precio = precio - (precio * descuento);
+                regalo = comidaybebida[3] +", " + comidaybebida[1];
+            }
+
+            //ej8
+            if(edad >= 36){
+                descuento = 0.2;
+                precio = precio - (precio * descuento);
+                regalo = comidaybebida[4];
+            }
+
+            //imprimir en consola
             console.log("Nombre: " + nombre);
             console.log("Edad: " + edad);
             console.log("Película: " + pelicula);
             console.log("Precio: " + precio);
+            console.log("Regalo: " + regalo);
+
+            //imprimir en HTML
+            var nombreHTML = document.createElement("p");
+            var edadHTML = document.createElement("p");
+            var peliculaHTML = document.createElement("p");
+            var precioHTML = document.createElement("p");
+            var regaloHTML = document.createElement("p");
+            nombreHTML.textContent = "Nombre: " + nombre;
+            edadHTML.textContent = "Edad: " + edad;
+            peliculaHTML.textContent = "Película: " + pelicula;
+            precioHTML.textContent = "Precio: " + precio;
+            regaloHTML.textContent = "Regalo: " + regalo;
+            document.body.appendChild(nombreHTML);
+            document.body.appendChild(edadHTML);
+            document.body.appendChild(peliculaHTML);
+            document.body.appendChild(precioHTML);
+            document.body.appendChild(regaloHTML);
+
         </script>
     </body>
 </html>
