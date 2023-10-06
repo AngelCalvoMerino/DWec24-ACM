@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>Ejercicio Arrays 4.1</title>
+    </head>
+    <body>
+        <p id="a"></p>
+        <script>
+            var socio = [];
+            var nombre;
+            var numeroSocios = 1;
+            while(numeroSocios <= 10){
+                var nombre = prompt("Nombre socio " + numeroSocios);
+                socio.push(nombre);
+                numeroSocios++;
+            }
+            console.log(socio);
+            document.getElementById("a").innerHTML = socio;
+
+        </script>
+        
+    </body>
+</html>

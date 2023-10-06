@@ -1,0 +1,74 @@
+<html>
+    <body>
+        <script>
+           
+            /*
+            edad = 18;
+            switch(true){
+                case: edad>18;
+                case: edad>=18;
+            }
+            */
+
+            /*
+            for(variable in objeto){
+                instrucciones
+            }
+            */
+
+            /* for of se utiliza para recorrer una cadena
+            for(variable of objeto){
+                instrucciones
+            }
+            */
+
+            /*
+            while(condicion){
+                sentencia;
+                sentencia;
+                ...
+            }
+            */
+
+            //numAdivinar = Math.ceil(Math.random()*100);
+
+            let numeroIntento = Number(prompt("Número"));
+            let intentos = 1;
+            let numeroAleatorio = Math.ceil(Math.random()*100);
+            while(numeroIntento != numeroAleatorio){
+                if(numeroIntento < numeroAleatorio){
+                    numeroIntento = Number(prompt("El número es más alto"));
+                    intentos += 1;
+                }
+                if(numeroIntento > numeroAleatorio){
+                    numeroIntento = Number(prompt("El número es más bajo"));
+                    intentos += 1;
+                }         
+            }
+            console.log("Intentos: " + intentos);
+
+        </script>
+            <!--
+            const meses = ["enero", "marzo", "junio", "noviembre"];
+            let meses = new Array(["enero", "marzo", "junio", "noviembre"]);
+            -->
+
+            <p id="aqui"></p>
+            <script>
+                const DIAS = ["lunes", "martes", "jueves", "viernes"];
+                DIAS[1] = Date();
+                document.getElementById("aqui").innerHTML = DIAS;
+                console.log(DIAS);
+            </script>
+
+            <script>
+                let a=["lunes", "martes", 2, 4, 6];
+                let cadena=a.join(':');
+                console.log(cadena);
+                let notas="5-7.5-6-5";
+                let arrayNotas=notas.split("-");
+                console.log(arrayNotas);
+            </script>
+        
+    </body>
+</html>
