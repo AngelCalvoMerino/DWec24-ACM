@@ -1,0 +1,19 @@
+<html>
+    <body>
+        <script>
+            //let personasOrdenado = personas.sort((persona1, persona2) => persona1.edad-persona2.edad);
+            //let personasOrdenado = personas.sort((persona1, persona2) => persona1.nombre.localeCompare(persona2.nombre));
+        </script>
+        <script>
+            //Hacer una función que ordene las notas de un array pasado como parámetro. Si se le pasa [4,8,3,10,5] debe devolver [3,4,5,8,10]. Pruébalo en la consola 
+            function ordenar(notas) {
+                return notas.sort(function(a, b) {
+                    return a - b;
+                });
+            }
+            var notas = [4, 8, 3, 10, 5,];
+            var resultado = ordenar(notas);
+            console.log(resultado);
+        </script>
+    </body>
+</html>
