@@ -1,0 +1,74 @@
+<html>
+    <body>
+        <div id="caja"></div>
+        <!--<script>
+            var caja = document.getElementById("caja");
+
+            var limite = prompt("límite");
+
+            //creciente
+            for (var i=0; i<limite; i++){
+                var asterisco = "";
+                var espacioHTML = "";
+            for (var k=0; k<limite -i -1; k++){
+                espacioHTML += "&nbsp&nbsp";
+            }
+            for (var j=1; j<= 2 * i + 1; j++){
+                asterisco += "*";
+            }
+            caja.innerHTML = caja.innerHTML + espacioHTML + asterisco + "<br>";
+            }
+        </script>-->
+        <script>/*
+            let a = 7;
+            let b = 6;
+            let auxiliar = a;
+            a = b;
+            b = auxiliar;
+            console.log(a);
+            console.log(b);
+            */
+        </script>
+
+            Desestructuración : Consiste en separar una estructura ( en JS se hace con un array o un  objeto)
+            const matriz = [5, 6];
+            const [first, last] = matriz; //first = 5, last = 2
+
+            const matriz = [5, 4, 3, 2];
+            const [first, second] = matriz; //first = 5, second = 4, rest = discard-descartadas
+
+            const matriz = [5, 4, 3, 2];
+            const [first, third] = matriz; //first = 5, third = 3, rest = discard
+
+            const matriz = [4];
+            const [first, second] = matriz; //first = 4, second = undefined
+
+            En la parte de la derecha los [] indican que se trata de un array, pero en la parte de la izquierda se utilizan para indicar que se hace una desestructuración.
+        
+        <script>
+            let a = 7;
+            let b = 6;
+            [a,b] = [b,a];
+            console.log(a);
+            console.log(b);
+        </script>
+        <script>
+            const debug = (param) => console.log(...param);
+            const matriz = [1, 2, 3, 4, 5];
+            debug(matriz);
+
+
+            const debug1 = (...param) => console.log(param);
+            debug1(1, 2, 3, 4, 5);
+
+
+            const elements = [5, 4, 3, 2];
+            const [first, ...rest] = elements;
+
+
+            const pareja = [3, 4];
+            const miArray = [1, 2, pareja, 5];
+            console.log(miArray);
+        </script>
+    </body>
+</html>
