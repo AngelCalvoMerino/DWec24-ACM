@@ -3,7 +3,10 @@
         <title>Ejercicio Arrays 4.1</title>
     </head>
     <body>
-        <p id="a"></p>
+        <p id="socios"></p>
+        <p id="numeroSocios"></p>
+        <p id="ordenAlfabetico"></p>
+        <p id="ordenInverso"></p>
         <script>
             var socio = [];
             var nombre;
@@ -14,7 +17,12 @@
                 numeroSocios++;
             }
             console.log(socio);
-            document.getElementById("a").innerHTML = socio;
+            document.getElementById("socios").innerHTML = socio;
+
+            console.log(socio.length);
+            document.getElementById("numeroSocios").innerHTML = numeroSocios - 1;
+
+            console.log(socio.sort());
 
         </script>
         

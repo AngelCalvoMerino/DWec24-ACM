@@ -1,0 +1,19 @@
+<html>
+    <body>
+        <script>
+            const hoy=[3,4,7,,{nombre:"juan", apellidos:"garcia"}];
+            var indice = 0;
+            for (let i = 0; i < hoy.length; i++){
+                console.log(hoy[i]);
+            }
+
+            for (const indice in hoy) {
+                console.log(hoy[indice]);
+            }
+
+            for (const indice of hoy) {
+                console.log(indice);
+            }
+        </script>
+    </body>
+</html>
