@@ -17,12 +17,20 @@
                 numeroSocios++;
             }
             console.log(socio);
-            document.getElementById("socios").innerHTML = socio;
+            document.getElementById("socios").innerHTML = "Socios: " + socio;
 
             console.log(socio.length);
-            document.getElementById("numeroSocios").innerHTML = numeroSocios - 1;
+            document.getElementById("numeroSocios").innerHTML = "Número de socios: " + (numeroSocios - 1);
 
             console.log(socio.sort());
+            var ordenAlfabetico = socio.slice(0, 10);
+            ordenAlfabetico.sort();
+            document.getElementById("ordenAlfabetico").innerHTML = "Socios ordenados: " + ordenAlfabetico.join(", ");
+
+            console.log(socio.reverse());
+            var ordenInverso = socio.slice(0, 10);
+            ordenInverso.reverse();
+            document.getElementById("ordenInverso").innerHTML = "Socios ordenados a la inversa: " + ordenInverso.join(", ");
 
         </script>
         
