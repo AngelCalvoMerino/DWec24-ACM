@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        let fecha1=new Date("Wed Mar 25 2015 09:15 GMT +0100(W. Europe Standart)");
+        let fecha2= new Date("October 12 2023");
+        let fecha3=new Date("2023-05-27");
+        let fecha4=new Date("2023");
+
+        alert(fecha1);
+        alert(fecha2);
+        alert(fecha3);
+        alert(fecha4);
+
+        let fechaMili=new Date(86400000);
+        var fechaLargo=new Date(2015,11,10,14,30,25);
+        var fechaCorto=new Date(2015,11,10);
+        alert("Fecha largo: " + fechaLargo + " Fecha corto: " + fechaCorto);
+
+        alert("Fecha: " + fecha);
+        alert("toString: " + fecha.toString());
+        alert("toUTCString: " + fecha.toUTCString());
+        alert("toDateString: " + fecha.toDateString());
+        */
+
+        //Eejercicio: Calcular la diferencia de dias entre hoy y el 7 de mayo de 1950.
+        let fecha1 = Date.parse("2023-10-27");
+        let fecha2 = Date.parse("1990-05-07");
+        let diferencia = fecha1 - fecha2;
+        let dia = diferencia / 86400000;
+        alert(dia);
+
+        let años = Math.trunc(diferencia / 31536000000);
+        diferencia = diferencia - (años * 31536000000);
+        let meses = Math.trunc(diferencia / 2628000000);
+        diferencia = diferencia - (meses * 2628000000);
+        let dias = Math.trunc(diferencia / 87600000);
+        diferencia = diferencia - (dias * 87600000);
+        let horas = Math.trunc(diferencia / 3650000);
+
+        let array = ["Años: " + años, "Meses: " + meses, "Días: " + dias, ["Horas: " + horas]];
+        console.log(array);
+        
+    </script>
+</body>
+</html>
