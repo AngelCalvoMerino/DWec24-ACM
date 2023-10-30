@@ -1,6 +1,9 @@
-<html>
+<!DOCTYPE html>
+<html lang="es">
     <head>
-        <title>Ejercicio Arrays 4.1</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ejercicio 4.1</title>
     </head>
     <body>
         <p id="socios"></p>
@@ -16,23 +19,17 @@
                 socio.push(nombre);
                 numeroSocios++;
             }
-            console.log(socio);
             document.getElementById("socios").innerHTML = "Socios: " + socio;
 
-            console.log(socio.length);
             document.getElementById("numeroSocios").innerHTML = "Número de socios: " + (numeroSocios - 1);
 
-            console.log(socio.sort());
-            var ordenAlfabetico = socio.slice(0, 10);
+            var ordenAlfabetico = socio.slice();
             ordenAlfabetico.sort();
-            document.getElementById("ordenAlfabetico").innerHTML = "Socios ordenados: " + ordenAlfabetico.join(", ");
+            document.getElementById("ordenAlfabetico").innerHTML = "Socios ordenados alfabéticamente: " + ordenAlfabetico.join(", ");
 
-            console.log(socio.reverse());
-            var ordenInverso = socio.slice(0, 10);
+            var ordenInverso = socio.slice();
             ordenInverso.reverse();
             document.getElementById("ordenInverso").innerHTML = "Socios ordenados a la inversa: " + ordenInverso.join(", ");
-
-        </script>
-        
+        </script>       
     </body>
 </html>
