@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Continua2</title>
+</head>
+<body>
+    <script>
+        let contactos = [
+            contacto1 = {nombre: "Maxwell Wright", telefono: "(0191) 719 6495", correo: "Curabitur.egestas.nunc@nonummyac.co.uk"},
+            contacto2 = {nombre: "Raja Villareal", telefono: "0866 398 2895", correo: "posuere.vulputate@sed.com"},
+            contacto3 = {nombre: "Helen Richards", telefono: "0800 1111", correo: "libero@convallis.edu"}
+        ];
+
+        let nuevoContacto = {nombre: "Maisie Haley", telefono: "0913 531 3030", correo: "risus.Quisque@urna.ca"};
+        contactos.push(nuevoContacto);
+
+        let primerContacto = contactos[0];
+        let ultimoContacto = contactos[contactos.length - 1];
+
+        console.log("Primer contacto: " + primerContacto.nombre + "/" + primerContacto.telefono + "/" + primerContacto.correo);
+        console.log("Último contacto: " + ultimoContacto.nombre + "/" + ultimoContacto.telefono + "/" + ultimoContacto.correo);
+    </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Continua5</title>
+</head>
+<body>
+    <script>
+        //lista
+        let contactos = [
+            contacto1 = {nombre: "Maxwell Wright", telefono: "(0191) 719 6495", correo: "Curabitur.egestas.nunc@nonummyac.co.uk"},
+            contacto2 = {nombre: "Raja Villareal", telefono: "0866 398 2895", correo: "posuere.vulputate@sed.com"},
+            contacto3 = {nombre: "Helen Richards", telefono: "0800 1111", correo: "libero@convallis.edu"}
+        ];
+
+        //Continua5
+        function mostrarPrimerContacto(){
+            let primerContacto = contactos[0];
+            console.log("Primer contacto: " + primerContacto.nombre + "/" + primerContacto.telefono + "/" + primerContacto.correo);
+        }
+
+        function mostrarUltimoContacto(){
+            let ultimoContacto = contactos[contactos.length - 1];
+            console.log("Último contacto: " + ultimoContacto.nombre + "/" + ultimoContacto.telefono + "/" + ultimoContacto.correo);
+        }
+
+        function mostrarContactos() {
+            console.log("Todos los contactos:");
+            for (var i = 0; i < contactos.length; i++) {
+                console.log(contactos[i].nombre + "/" + contactos[i].telefono + "/" + contactos[i].correo);
+            }
+        }
+
+        function nuevoContacto(){
+            let nombre = prompt("Nombre:");
+            let telefono = prompt("Teléfono:");
+            let correo = prompt("Correo:");
+            if (nombre && telefono && correo) {
+                let nuevoContacto = {nombre: nombre, telefono: telefono, correo: correo};
+                contactos.push(nuevoContacto);
+                console.log("Nuevo contacto añadido: " + nuevoContacto.nombre + "/" + nuevoContacto.telefono + "/" + nuevoContacto.correo);
+            } else {
+                alert("No se ha agregado el contacto, falta alguno de los tres valores");
+            }
+        }
+
+        let elegirOpcion;
+        while (elegirOpcion !== "salir"){
+            elegirOpcion = prompt("Elige una opción: primero / ultimo / todos / nuevo / salir");
+            switch (elegirOpcion){
+            case "primero": mostrarPrimerContacto();
+            break;
+            case "ultimo": mostrarUltimoContacto();
+            break;
+            case "todos": mostrarContactos();
+            break;
+            case "nuevo": nuevoContacto();
+            break;
+            case "salir":
+            break;
+            default: "Opción no válida";
+        }
+        }       
+    </script>
+</body>
+</html>
