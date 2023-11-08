@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function Persona(nom, ape, ed){
+            this.nombre = nom;
+            this.apellido = ape;
+            this.edad = ed;
+            this.nombreCompleto = function(){
+                return this.nombre + " " + this.apellido;
+            }
+        }
+        var ana = ("Ana", "Hoyo", "23");
+        var paco = new Persona("Paco", "Martinez", "27");
+        ana.nacionalidad = "inglesa";
+        alert(ana.nacionalidad);
+        alert(paco.nacionalidad);
+
+        Persona.prototype.fecha = "1980";
+        alert(paco.fecha);
+    </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio Objetos Prototipo</title>
+</head>
+<body>
+    <script>
+        //1. DEFINIR OBJETOS
+        //Act 3.2
+        function TvSamsung(nombre, categoria, unidades, precio){
+            this.nombre = nombre;
+            this.categoria = categoria;
+            this.unidades = unidades;
+            this.precio = precio;
+            this.importe = function(){
+                return this.unidades * this.precio;
+            }
+        }
+        var tvSamsung = new TvSamsung("TV Samsung 42", "Televisores", "4", "345.95");
+        //Act 3.1
+        function Productos(nombre, categoria, unidades, precio){
+            this.nombre = nombre;
+            this.categoria = categoria;
+            this.unidades = unidades;
+            this.precio = precio;
+            this.importe = function(){
+                return this.unidades * this.precio;
+            }
+            this.getInfo = function(){
+                return this.nombre + "(" + this.categoria + "): " + this.unidades + " uds x " + this.precio + "€ = " + this.importe() + "€";
+            }
+        }
+        var microondas = new Productos("Microondas", "Electrodomésticos", 5, 100);
+        var sillon = new Productos("Sillón", "Muebles", 3, 200);
+        var seat = new Productos("Seat", "Coches", 1, 300);
+
+        //Act 3.2
+        function Televisores(nombre, categoria, unidades, precio, tamaño){
+            Productos.call(this, nombre, categoria, unidades, precio);
+            this.tamaño = tamaño;
+        }
+
+        Televisores.prototype = Object.create(Productos.prototype);
+        
+        Televisores.prototype.getInfo = function(){
+            return this.nombre + " " + this.tamaño + "(" + this.categoria + "):" + this.unidades + "x" + this.precio + "=" + this.valorTotal() + "€";
+        }
+        
+        var tele = new Televisores("TV", "Televisores", 10, 250, 50);
+        console.log(tele.getInfo());
+
+
+        //2. TRABAJANDO CON OBJETOS
+        //Act 4.1
+        Productos.prototype.toString = function ProductosToString(){
+            return this.nombre + "(" + this.categoria + "): " + this.unidades + " uds x " + this.precio + "€ = " + this.importe() + "€";
+        }
+        var ordenador = new Productos("Ordenador", "Tecnología", 7, 300);
+        console.log(ordenador.toString());
+
+        Televisores.prototype.toString = function TelevisoresToString(){
+            return this.nombre + " " + this.tamaño + "(" + this.categoria + "):" + this.unidades + "x" + this.precio + "=" + this.valorTotal() + "€";
+        }
+        var telev = new Televisores("LG", "Televisores", 4, 1000, 70);
+        console.log(telev.toString());
+
+        //Act 4.2
+        
+    </script>
+</body>
+</html>
