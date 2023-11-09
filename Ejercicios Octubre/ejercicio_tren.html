@@ -12,15 +12,15 @@
                     return "Número no válido.";
                 }
 
-                let totalViajeros = numero % 10; // Obtener el último dígito como viajeros al principio.
-                numero = Math.floor(numero / 10); // Eliminar el último dígito del número.
+                let totalViajeros = numero % 10;
+                numero = Math.floor(numero / 10);
 
                 while (numero > 0) {
-                    let subieron = numero % 10; // Obtener el penúltimo dígito como viajeros que subieron.
-                    numero = Math.floor(numero / 10); // Eliminar el penúltimo dígito del número.
+                    let subieron = numero % 10;
+                    numero = Math.floor(numero / 10);
         
-                    let bajaron = numero % 10; // Obtener el siguiente dígito como viajeros que bajaron.
-                    numero = Math.floor(numero / 10); // Eliminar el siguiente dígito del número.
+                    let bajaron = numero % 10;
+                    numero = Math.floor(numero / 10);
         
                     totalViajeros += (subieron - bajaron);
                 }
@@ -29,7 +29,7 @@
             }
 
             // Ejemplo de uso:
-            let numero = prompt("Ingrese el número de viajeros en el tren:");
+            let numero = prompt("Número de viajeros:");
             let resultado = contarViajeros(Number(numero));
             console.log(resultado);
         </script>

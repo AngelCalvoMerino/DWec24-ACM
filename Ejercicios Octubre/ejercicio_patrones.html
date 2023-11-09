@@ -6,6 +6,31 @@
         <title>Ejercicio patrones</title>
     </head>
     <body>
-    
+        <script>
+            function numeroPatrones(texto) {
+                texto = texto.toLowerCase();
+                const patrones = ["00", "101", "ABC", "H0"];
+                let contador = 0;
+
+                patrones.forEach(patron => {
+                    patron = patron.toLowerCase();
+                    let posicion = texto.indexOf(patron);
+                    while (posicion !== -1) {
+                        contador ++;
+                        posicion = texto.indexOf(patron, posicion + 1);
+                    }       
+                });
+
+            return contador;
+            }
+
+            function contarPatrones() {
+                const texto = prompt("Cadena de texto:");
+                const resultado = numeroPatrones(texto);
+                console.log("Patrones encontrados: " + resultado);
+            }
+
+            contarPatrones();
+        </script>
     </body>
 </html>
