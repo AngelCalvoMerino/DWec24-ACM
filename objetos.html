@@ -23,6 +23,40 @@
 
         Persona.prototype.fecha = "1980";
         alert(paco.fecha);
+
+
+        /*Iteradores de objetos
+        Métodos
+        Object.keys(obj)
+        devuelve Array de los índices del iterable (en una cadena---número de letras)
+
+        Object.values(obj)
+        devuelve Array de los contenidos del iterable
+
+        Object.entries(obj)
+        Devuelve Array de los pares clave:valor
+
+        Ejercicio: Un array es  un objeto...
+        Crear un array de animales y aplicarle estos métodos
+        var animales = ["perro", "gato", "caballo"];
+        Object.keys(animales);
+        Object.values(animales);
+        */
+
+        //Dos array de partida
+        const keys = ["name", "life", "power", "talk"];
+        const values = ["Otto", 99, 10, function(){return "Hola"}];
+
+        //se crea un array de pares
+        const entries = [];
+        for (let i of Object.keys(keys)){
+            const key = keys[i];
+            const value = values[i];
+            entries.push([key, value]);
+        }
+
+        //Se usa Object.fromEntries
+        const user = Object.fromEntries(entries);
     </script>
 </body>
 </html>
