@@ -60,13 +60,73 @@
         console.log(ordenador.toString());
 
         Televisores.prototype.toString = function TelevisoresToString(){
-            return this.nombre + " " + this.tamaño + "(" + this.categoria + "):" + this.unidades + "x" + this.precio + "=" + this.valorTotal() + "€";
+            return this.nombre + " " + this.tamaño + "(" + this.categoria + "):" + this.unidades + "x" + this.precio;
         }
         var telev = new Televisores("LG", "Televisores", 4, 1000, 70);
         console.log(telev.toString());
 
         //Act 4.2
-        
+        Productos.prototype.valueOf = function ProductosValueOf(){
+            return this.precio + "€";
+        }
+        console.log(ordenador.valueOf());
+
+        Televisores.prototype.valueOf = function TelevisoresValueOf(){
+            return this.precio + "€";
+        }
+        console.log(telev.valueOf());
+
+        //Act 4.4
+        let arrayProductos = [
+            producto1 = ["Móvil", "Tecnología", 5, 200.56],
+            producto2 = ["Lavadora", "Electrodomésticos", 1, 500.74],
+            producto3 = ["Coche", "Vehículos", 10, 5000.19],
+            producto4 = ["Moto", "Vehículos", 7, 2000.85],
+            producto5 = ["Camiseta", "Ropa", 20, 10.01]
+        ];
+
+        //Orden por nombre
+        function prodOrdenPorNombre(array) {
+            return array.slice().sort((a, b) => a[0].localeCompare(b[0]));
+        }
+        let productosOrdenadosPorNombre = prodOrdenPorNombre(arrayProductos);
+        console.log("Productos ordenados por nombre:", productosOrdenadosPorNombre);
+
+        //Orden por precio
+        function prodOrdenPorPrecio(array) {
+            return array.slice().sort((a, b) => a[3] - b[3]);
+        }
+        let productosOrdenadosPorPrecio = prodOrdenPorPrecio(arrayProductos);
+        console.log("Productos ordenados por precio:", productosOrdenadosPorPrecio);
+
+        //Orden por precio total
+        function prodPrecioTotal(array) {
+            let total = 0;
+            array.forEach(producto => {
+                total += producto[2] * producto[3];
+            });
+            return total.toFixed(2);
+        }
+        let importeTotal = prodPrecioTotal(arrayProductos);
+        console.log("Importe total de los productos:", importeTotal);
+
+        //Productos con menor cantidad que la indicada
+        function prodConMenosUnidades(array, cantidad) {
+            return array.filter(producto => producto[2] < cantidad);
+        }
+        let productosConMenosUnidades = prodConMenosUnidades(arrayProductos, 8);
+        console.log("Productos con menos de 10 unidades:", productosConMenosUnidades);
+
+        //Lista
+        function prodLista(array) {
+            let lista = 'Listado de productos:\n';
+            array.forEach(producto => {
+                lista += `- Nombre: ${producto[0]}; Categoría: ${producto[1]}; Unidades: ${producto[2]}; Precio: ${producto[3]}\n`;
+            });
+            return lista;
+        }
+        let listaDeProductos = prodLista(arrayProductos);
+        console.log(listaDeProductos);
     </script>
 </body>
 </html>
