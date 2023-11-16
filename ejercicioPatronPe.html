@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio patrón pe</title>
+</head>
+<body>
+    <script>
+        function palabra_codificada_pe(palabra) {
+            let vocales = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'];
+            let palabraCodificada = 'pe';
+            for (let i = 0; i < palabra.length; i++) {
+                palabraCodificada += palabra[i];
+                if (vocales.includes(palabra[i]) && !vocales.includes(palabra[i + 1])  && i !== palabra.length -1) {
+                    palabraCodificada += 'pe';
+                }
+            }
+            return palabraCodificada;
+        }
+
+        console.log(palabra_codificada_pe("Autenticacion"))
+    </script>    
+</body>
+</html>
