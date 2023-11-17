@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 2</title>
+</head>
+<body>
+    <div id="caja"></div>
+    <script>
+        var caja = document.getElementById("caja");
+        var limite = prompt("límite");//Solicitar límite
+        while (limite > 50){//El límite no puede ser mayor que 50
+            limite = prompt("límite");
+        }
+        var numero = limite;//numero que se va ir imprimiendo
+
+       for (var i = limite - 1; i >= 0; i--) {
+                var mostrar = "";//mostrar el número
+                var espacioHTML = "";//insertar espacios para lograr la pirámide
+            for (var k = 0; k < limite - i - 1; k++) {
+                espacioHTML += "&nbsp;&nbsp;";//asignación de espacios
+            }
+            
+            for (var j = 1; j <= 1 * i + 1; j++) {
+                mostrar += numero;//asignación del número correspondiente
+            }
+            numero--;//restarle 1 al número para la siguiente línea
+            caja.innerHTML = caja.innerHTML + espacioHTML + mostrar + "<br>";//asignarle la pirámide al div para poder visualizarla
+            }
+    </script>
+</body>
+</html>

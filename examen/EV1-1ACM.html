@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1</title>
+</head>
+<body>
+    <script>
+        function Caminata(minutos){
+            this.minutos = minutos;
+            var contador = 0;//contador para obtener una dirección por cada minuto
+            var minutos = prompt("Minutos");
+            while (minutos < 6 || minutos > 16 || minutos % 2!= 0) {//Solo funciona entre 6 y 16 minutos simpre y cuando el número de minutos sea par
+                minutos = prompt("Minutos");
+            }
+            const direcciones = ["n", "s", "e", "o"];//cuatro direcciones posibles
+            direcciones[0] == 1;
+            direcciones[1] == -1;
+            direcciones[2] == 2;
+            direcciones[3] == -1;
+
+            var recorrido = [];//recorrido a realizar
+
+            
+
+            while (contador < minutos) {
+                var aleatorio = direcciones[Math.floor(Math.random()*4)];//creación del recorrido aleatorio
+                recorrido.push(aleatorio);//insertar las direcciones aleatorias en el recorrido
+                contador++;
+            }
+            console.log("El recorrido a seguir para " + minutos + " minutos es: " + recorrido);
+        }
+        Caminata();
+                
+    </script>
+</body>
+</html>
