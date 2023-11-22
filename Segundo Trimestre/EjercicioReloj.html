@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio Reloj</title>
+</head>
+<body>
+    <p id="reloj"></p>
+    <script>
+        var int = setInterval(reloj, 1000);
+        function reloj() {
+            var fecha = new Date();
+            document.getElementById("reloj").innerHTML = fecha.getHours() + ":" + fecha.getMinutes() + ":" + fecha.getSeconds();
+        }     
+    </script>
+    <button onclick="clearTimeout(int)">Parar Reloj</button>
+
+    <!--Ejercicio 1-->
+    <script>
+        function crearVentana() {
+            ventana = window.open();
+            ventana.resizeBy(500, 200);
+            ventana = document.write("<h1>Hola</h1>");
+            ventana.moveBy(-300, -100);
+            ventana.close();
+            }
+                   
+    </script>
+    <button onclick="crearVentana()">Ventana</button>
+
+
+</body>
+</html>

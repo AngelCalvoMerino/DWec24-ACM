@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function crearVentana() {
+            miVentana = window.open(/*'http://www.elpais.com'*/);
+            }
+
+        //Otra forma de abrirla
+        //miVentana = window.open("","","width=500,heigth=200");
+
+        //Ahora añadiendo algo a la ventana
+        miVentana = document.write("<h1>Mi ventana</h1>");
+
+
+        function cerrarVentana() {
+            miVentana.close();
+        }
+        
+        function redimensionarVentana() {
+            miVentana.resizeBy(10, 10);
+            //Número de píxeles respecto a su parámetro
+            //también existe resize lo que redimensiona a los píxeles especificados
+        }
+
+        function moverVentana() {
+            miVentana.moveBy(10, 10);
+        }
+
+        function enfocar() {
+            miVentana.focus();
+        }
+
+        function imprimir() {
+            miVentana.print();
+        }
+
+        function saludar() {
+            alert("hola");
+        }
+    </script>
+    <button onclick="crearVentana()">Crear una ventana</button>
+    <button onclick="cerrarVentana()">Cierra una ventana</button>
+    <button onclick="redimensionarVentana()">Redimensiona una ventana</button>
+    <button onclick="moverVentana()">Mover una ventana</button>
+    <button onclick="enfocar()">Enfoca una ventana</button>
+    <button onclick="imprimir()">Imprimir una ventana</button>
+    <button onclick="setTimeout(saludar, 4000)">Saludar</button>
+    <button onclick="setInterval(saludar, 4000)">Saludar</button>
+    <button onclick="clearTimeout(saluda)">Cancelar</button>
+</body>
+</html>
