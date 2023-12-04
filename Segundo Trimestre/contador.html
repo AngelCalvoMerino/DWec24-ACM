@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="contador"></p>
+
+    <script>
+        document.getElementById("contador").addEventListener("click", aumentarContador);
+
+        let contador = 0;
+        
+        function aumentarContador(){
+            contador ++;
+            document.getElementById("contador").innerText = contador;
+        }
+        
+    </script>
+
+    <button onclick="aumentarContador()">Aumentar</button>
+
+</body>
+</html>
