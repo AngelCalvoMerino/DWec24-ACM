@@ -8,19 +8,33 @@
 <body>
     <p id="contador"></p>
 
+    <button id="boton">Botón</button>
+
     <script>
-        document.getElementById("contador").addEventListener("click", aumentarContador);
-
         let contador = 0;
-        
-        function aumentarContador(){
-            contador ++;
-            document.getElementById("contador").innerText = contador;
+        const contadorElement = document.getElementById("contador");
+
+        contadorElement.innerText = contador;
+
+        document.getElementById("boton").addEventListener("mousedown", function(e) {
+            if (e.button === 0) {
+                // Botón izquierdo
+                aumentarContador();
+            } else if (e.button === 2) {
+                // Botón derecho
+                decrementarContador();
+            }
+        });
+
+        function aumentarContador() {
+            contador++;
+            contadorElement.innerText = contador;
         }
-        
+
+        function decrementarContador() {
+            contador--;
+            contadorElement.innerText = contador;
+        }
     </script>
-
-    <button onclick="aumentarContador()">Aumentar</button>
-
 </body>
 </html>

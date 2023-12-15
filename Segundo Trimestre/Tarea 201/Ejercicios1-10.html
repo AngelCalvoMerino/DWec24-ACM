@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarea 201</title>
+</head>
+<body>
+    <script>
+        //Ejercicio 1
+        const fechayhora = new Date();
+        console.log(fechayhora);
+
+
+        //Ejercicio 2
+        const array1 = [1, 2, 3, 4, 5];
+        const array2 = [6, 7, 8, 9, 10];
+        const arrayMezclado = array1.concat(array2);
+        console.log(arrayMezclado);
+
+
+        //Ejercicio 3
+        const arrayDuplicados = [1, 1, 2, 3, 4, 4, 5];
+        function quitarDuplicados(array) {
+            const set = new Set(array);
+            const arraySinDuplicados = Array.from(set);
+            return arraySinDuplicados;
+        }
+        const arraySinDuplicados = quitarDuplicados(arrayDuplicados);
+        console.log(arraySinDuplicados);
+
+
+        //Ejercicio 4
+        function numeroAleatorio(valorMinimo, valorMaximo) {
+            const numero = Math.random() * (valorMaximo - valorMinimo) + valorMinimo;
+            return Math.trunc(numero);
+        }
+        const numero = numeroAleatorio(1, 100);
+        console.log(numero);
+
+
+        //Ejercicio 5
+        const contra= ()=>Math.random().toString(36).slice(2);
+        console.log(contra());
+
+        //Ejercicio 6
+        const objeto = {nombre: "Ángel", apellido1: "Calvo", apellido2: "Merino"};
+        const array = Object.entries(objeto);
+        console.log(array);
+
+
+        //Ejercicio 9
+        const desordenado = ["angel", 7, 4, "calvo", 9, 0, 1, "*"];
+        console.log(desordenado.sort());
+
+    </script>
+</body>
+</html>
