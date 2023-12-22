@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>appendChild</title>
+</head>
+<body>
+    <div id="miDiv">      
+    </div>
+    <script>
+        //Con document.getElementById se obtiene una referencia al div en el que queremos agregar el párrafo
+        var miDiv = document.getElementById("miDiv");
+        //Para crear un nuevo elemento de párrafo
+        var nuevoParrafo = document.createElement("p");
+        //Para crear un nodo de texto para el contenido del párrafo
+        var texto = document.createTextNode('Este es un nuevo párrafo añadido con appendChild');
+        //Agregar el nodo de texto al párrafo
+        nuevoParrafo.appendChild(texto);
+        //Agregar el párrafo como hijo al div
+        miDiv.appendChild(nuevoParrafo);
+    </script>
+
+
+
+    <div id="miDiv2">
+        <p id="parrafoAntiguo">Este es el parrafo antiguo</p>
+    </div>
+    <script>
+
+
+        function remplazarParrafo(){
+            var miDiv = document.createElement("miDiv2");
+            var nuevoParrafo = document.createElement('p');
+            nuevoParrafo.textContent = 'Este es el párrafo nuevo remplazando al anterior.';
+            var parrafoAntiguo = document.getElementById('parrafoAntiguo');
+            miDiv.replaceChild(nuevoParrafo, parrafoAntiguo);
+        }
+        
+    </script>
+</body>
+</html>
