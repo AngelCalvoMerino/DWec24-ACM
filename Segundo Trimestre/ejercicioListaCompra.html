@@ -3,17 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ejercicio lista de la compra</title>
 </head>
 <body>
-    <ul id="lista">
-        <li>Pan</li>
-        <li>Agua</li>
-        <li>Carne</li>        
-    </ul>
-    <textarea id="texto"></textarea>
+    <ul id="lista"></ul>
+    <input type="text" id="texto">
     <br/>
     <button id="añadir">Añadir</button>
+    <button id="borrar">Borrar</button>
 
     <script>
         window.addEventListener("load", inicio);
@@ -23,16 +20,33 @@
         }
 
         function añadir(){
+            //lista
+            var lista = document.getElementById("lista");
+            var NuevoTexto = document.getElementById("texto").value;
             //Crear elemento
-            var parrafo = document.createElement("li");
+            var nuevoElemento = document.createElement("li");
             //Crear texto
             var texto = document.createTextNode(document.getElementById("texto").value);
-            parrafo.appendChild(texto);
+            nuevoElemento.appendChild(document.createTextNode(NuevoTexto));
             //Añadir atributos
-            parrafo.setAttribute("class", "miClase");
+            nuevoElemento.setAttribute("class", "miClase");
+            //Obtener elementos de la lsita
+            var elementosLista = lista.getElementsByTagName("li");
+            var array = Array.from(elementosLista);
+            //Añadir nuevo elemento al array
+            array.push(nuevoElemento);
+            //Ordenar alfabeticamente
+            array.sort(function(a, b){
+                return a.textContent.localeCompare(b.textContent);
+            });
+            //Añadir elementos ordenados a la lista
+            array.forEach(function (elemento) {
+                    lista.appendChild(elemento);
+            });
+        }
 
-            var cont = document.getElementById("lista");
-            cont.appendChild(parrafo);
+        function borrar(){
+
         }
     </script>
 </body>
