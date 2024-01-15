@@ -17,6 +17,7 @@
 
         function inicio() {
     document.getElementById("añadir").addEventListener("click", añadir);
+    document.getElementById("borrar").addEventListener("click", borrar);
         }
 
         function añadir(){
@@ -43,10 +44,15 @@
             array.forEach(function (elemento) {
                     lista.appendChild(elemento);
             });
+            //Vacía el valor del input después de añadir el elemento
+            document.getElementById("texto").value = "";
         }
 
         function borrar(){
-
+            var borrarLista = document.getElementById("lista");
+            while (borrarLista.firstChild){
+                borrarLista.removeChild(borrarLista.firstChild);
+            }
         }
     </script>
 </body>
