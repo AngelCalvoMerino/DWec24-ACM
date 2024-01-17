@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Encendido/Apagado </title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1> Control de Encendido/Apagado </h1>
+
+  <p id="estadoParrafo">El dispositivo está encendido.</p>
+  <button onclick="cambiarEstado()">Apagar</button>
+
+  <script>
+    var estadoEncendido = true;
+
+    function cambiarEstado() {
+      // Obtener el párrafo y el botón
+      var estadoParrafo = document.getElementById("estadoParrafo");
+      var boton = document.querySelector("button");
+
+      // Cambiar el estado y el texto
+      if (estadoEncendido) {
+        estadoParrafo.innerHTML = "El dispositivo está apagado.";
+        boton.innerHTML = "Encender";
+      } else {
+        estadoParrafo.innerHTML = "El dispositivo está encendido.";
+        boton.innerHTML = "Apagar";
+      }
+
+      // Cambiar el valor del estado
+      estadoEncendido = !estadoEncendido;
+    }
+  </script>
+
+</body>
+</html>

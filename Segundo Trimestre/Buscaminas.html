@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscaminas</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #ccc;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        td:hover {
+            background-color: #999;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    function crearTablero(filas, columnas) {
+        const tablero = document.getElementById('tablero');
+
+        for (let i = 0; i < filas; i++) {
+            const fila = document.createElement('tr');
+
+            for (let j = 0; j < columnas; j++) {
+                const celda = document.createElement('td');
+                celda.textContent = ' ';
+                fila.appendChild(celda);
+            }
+
+            tablero.appendChild(fila);
+        }
+    }
+
+    function iniciarJuego() {
+        const filas = prompt('Ingrese el número de filas y columnas:');
+        const numFilas = parseInt(filas);
+
+        if (!isNaN(numFilas)) {
+            crearTablero(numFilas, numFilas);
+        } else {
+            alert('Por favor, ingrese un número válido de filas y columnas.');
+        }
+    }
+
+    window.onload = iniciarJuego;
+</script>
+
+<table id="tablero"></table>
+
+</body>
+</html>
