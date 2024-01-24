@@ -36,7 +36,52 @@
                     <input type="radio" name="sexo" value="M"/> Mujer
                 </td>
             </tr>
+            <tr>
+                <td>Mayor de 18: </td>
+                <td>
+                    <input type="checkbox" name="mayor" id="mayor" checked>
+                </td>
+            </tr>
         </table>
+        <p>
+            <input type="submit" value="Enviar" id="enviar" />
+            <input type="reset" value="Borrar" id="borrar" />
+        </p>
     </form>
+
+    <script>
+        
+
+        function validarTelefono() {
+            var elemento = document.getElementById("telefono");
+            if (isNaN(elemento.value)) {
+                alert("El teléfono debe ser numérico");
+                return false;
+            }
+            return true;
+        }
+
+        function validarFecha() {
+            var dia = document.getElementById("dia").value;
+            var mes = document.getElementById("mes").value;
+            var ano = document.getElementById("ano").value;
+            var fecha = new Date(ano, mes, dia);
+            if (isNaN(fecha)) {
+                alert("El fecha es incorrecta");
+                return false;
+            }
+            return true;
+        }
+
+        function validarCheck() {
+            var campoCheck = document.getElementById("mayor");
+            if (!campoCheck.checked) {
+                alert("Debe ser mayor de 18");
+                return false;
+            }
+            return true;
+        }
+        
+    </script>
 </body>
 </html>
