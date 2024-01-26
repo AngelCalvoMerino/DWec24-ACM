@@ -33,9 +33,9 @@
 
     <script>
         document.getElementById("verTodas").addEventListener("click", verTodas);
-        document.getElementById("crearCookie1").addEventListener("click", crearCookie1);
-        document.getElementById("crearCookie2").addEventListener("click", crearCookie2);
-        document.getElementById("borrarCookie1").addEventListener("click", borrarCookie1);
+        document.getElementById("crearCookie1").addEventListener("click", crearCookie);
+        document.getElementById("crearCookie2").addEventListener("click", crearCookie);
+        document.getElementById("borrarCookie1").addEventListener("click", borrarCookie);
         document.getElementById("borrarCookie2").addEventListener("click", borrarCookie);
 
         function verTodas() {
@@ -49,6 +49,35 @@
                 document.cookie="apellido=Garcia";
             }
         }
+
+        function borrarCookie(e) {
+            if (e.target.id=="borrarCookie1") {
+                document.cookie="nombre=; expires=Thu, 01 Jan 1970 00:00:01 UTC";              
+            } else if(e.target.id=="borrarCookie2") {
+                document.cookie="apellido=; expires=Thu, 01 Jan 1970 00:00:01 UTC";
+            }
+        }
+
+
+        //Métodos:
+        /*setItem
+        removeItem
+        getItem
+
+        localStorage.setItem("nombre", "Juan Jose");
+        */
+
+
+
+
+        //Buscaminas:
+        /*
+        Comprobar si el navegador soporta Storage
+        Mostrar un mensaje con el nombre del usuario si este se ha logueado en l apágina, diferenciando si es su primera visita
+        o ya ha entrado en más ocasiones. Utilizar la función para llevar el control de las veces que el usuario ha accedido a la página.
+        Crear una función incremento y otra decremento para modificar el marcador.
+
+        */
     </script>
 </body>
 </html>
