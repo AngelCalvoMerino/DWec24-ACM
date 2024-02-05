@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Coche {
+            constructor(marca) {
+                this.marca = marca;
+            }
+            function anuncio() {
+                return "";
+            }
+
+        constructor(marca){
+            this._marca = marca;
+        }
+        get marca() {
+            return this._marca;
+        }
+        set marca(mar) {
+            this._marca = mar;
+        }
+        let miCoche = new Coche("Toyota");
+        miCoche.marca = "Altea";
+        mensaje.innerHTML = "Mi coche es un " + miCoche.marca;
+    },true);
+    </script>
+</body>
+</html>
