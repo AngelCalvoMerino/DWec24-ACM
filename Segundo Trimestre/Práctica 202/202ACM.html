@@ -10,6 +10,9 @@
             display: flex;
             justify-content: center;
         }
+        form {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -21,7 +24,7 @@
             <legend>Datos personales</legend>
 
             <!-- Nombre -->
-            <label for="nif">Introduce tu nombre</label>
+            <label for="nombre">Introduce tu nombre</label>
             <input type="text" name="nombre" id="nombre" pattern="[A-Za-z]{2,15}" required/>
             </br></br>
 
@@ -33,7 +36,7 @@
             <!-- Mensaje -->
             <label for="mensaje">Mensaje</label>
             </br>
-            <textarea type="text" name="mensaje" id="mensaje" rows="5" cols="50" minlength="2" maxlength="500"></textarea>
+            <textarea type="text" name="mensaje" id="mensaje" rows="5" cols="50" minlength="2" maxlength="500" required></textarea>
             </br></br>
 
             <!-- Color -->
@@ -44,7 +47,7 @@
             </br>
             <input type="radio" name="color" value="verde"/> Verde
             </br>
-            <input type="radio" name="color" value="azul"  checked/> Azul
+            <input type="radio" name="color" value="azul" checked/> Azul
             </br></br>
 
             <!-- Fecha matriculación -->
@@ -61,8 +64,8 @@
                 <option value="21-22">21-22</option>
                 <option value="22-23">22-23</option>
                 <option value="23-24">23-24</option>
+                <option value="Añadir">Añadir</option>
             </select>
-            <input type="text" id="nuevoCurso" name="nuevoCurso" placeholder="Añadir nuevo curso">
             </br></br>
 
             <!-- Asignaturas -->
