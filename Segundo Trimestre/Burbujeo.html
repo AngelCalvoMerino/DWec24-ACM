@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="contenedor">Contenedor
+        <button id="boton">Botón</button>
+    </div>
+    
+    <script>
+        document.getElementById('contenedor').addEventListener('click', function(){
+            console.log('Contenedor hizo clic');
+        });
+
+        document.getElementById('boton').addEventListener('click', function(){
+            console.log('Boton hizo clic');
+            //event.stopPropagation(); //Detiene la propagación del evento
+        });
+    </script>
+</body>
+</html>
