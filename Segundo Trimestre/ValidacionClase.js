@@ -10,7 +10,7 @@ function validarNombre() {
         if (elemento.validity.valueMissing) {
             error2=(elemento, "No puede dejar este campo vacío");
         }
-        if (elemento.validity.patternMissmatch) {
+        if (elemento.validity.patternMismatch) {
             error2=(elemento, "Debe contener entre 2 y 15 caracteres");
         }
         return false;
