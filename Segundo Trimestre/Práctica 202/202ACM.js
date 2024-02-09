@@ -2,9 +2,9 @@
 const mensaje = document.getElementById('mensaje');
 const contador = document.getElementById('contador');
 mensaje.addEventListener('input', function(e) {
-const target = e.target;
-const longitudAct = target.value.length;
-contador.innerHTML = `Caracteres restantes:${500 - longitudAct}`;
+    const target = e.target;
+    const longitudAct = target.value.length;
+    contador.innerHTML = `Caracteres restantes:${500 - longitudAct}`;
 });
 
 //Añadir curso
@@ -37,13 +37,13 @@ document.getElementById("incluir").addEventListener("click", function() {
 
 //Seleccionar/deseleccionar todo
 function seleccionarTodo() {
-    var checkboxes = document.getElementsByClassName("dia");
-    var selectTodoCheckbox = document.getElementById("todos");
+    var dias = document.getElementsByClassName("dia");
+    var seleccionarTodos = document.getElementById("todos");
 
-    for (var i = 0; i < checkboxes.length; i++) {
-      checkboxes[i].checked = selectTodoCheckbox.checked;
+    for (var i = 0; i < dias.length; i++) {
+      dias[i].checked = seleccionarTodos.checked;
     }
-  }
+}
 
 //Validación
 window.onload = iniciar;
@@ -53,9 +53,9 @@ function iniciar() {
 
 function validarNombre() {
     var elemento = document.getElementById("nombre");
-    if (elemento.checkValidity()) {
+    if (!elemento.checkValidity()) {
         if (elemento.validity.valueMissing) {
-            error(elemento, "No puede dejar este campo vacío");
+            error(elemento, "No puede dejar el nombre vacío");
         }
         return false;
     }
@@ -64,9 +64,9 @@ function validarNombre() {
 
 function validarNIF() {
     var elemento = document.getElementById("nif");
-    if (elemento.checkValidity()) {
+    if (!elemento.checkValidity()) {
         if (elemento.validity.valueMissing) {
-            error(elemento, "No puede dejar este campo vacío");
+            error(elemento, "No puede dejar el NIF vacío");
         }
         if (elemento.validity.patternMismatch) {
             error(elemento, "El NIF tiene que ser 8 números seguidos de una letra");
@@ -80,7 +80,7 @@ function validarMensaje(){
     var elemento = document.getElementById("mensaje")
     if(!elemento.checkValidity()){
         if(elemento.validity.valueMissing){
-            error(elemento, "No puede dejar el campo mensaje vacío")
+            error(elemento, "No puede dejar el mensaje vacío")
         }
         if (elemento.validity.rangeUnderflow) {
             error(elemento, "Mínimo 2 caracteres");
@@ -95,24 +95,24 @@ function validarMensaje(){
 
 function validarFechaMatriculacion() {
     var elemento = document.getElementById("fecha");
-    if (elemento.checkValidity()) {
+    if (!elemento.checkValidity()) {
         if (elemento.validity.valueMissing) {
-            error(elemento, "No puede dejar este campo vacío");
+            error(elemento, "No puede dejar la fecha de matriculación vacía");
         }
         return false;
     }
     return true;
 }
 
-/*
+
 function validarDiasDisponibles() {
     
 }
-*/
+
 
 function validar(e) {
     borrarError();
-    if (validarNombre() && validarNIF() && validarMensaje() && validarFechaMatriculacion() /*&& validarDiasDisponibles()*/) {
+    if (validarNombre() && validarNIF() && validarMensaje() && validarFechaMatriculacion() && validarDiasDisponibles()) {
         return true;
     } else {
         e.preventDefault();
@@ -121,8 +121,7 @@ function validar(e) {
 }
 
 function error(elemento, mensaje) {
-    document.getElementById("mensajeError").innerHTML=mensaje;
-    elemento.className="error";
+    alert(mensaje);
     elemento.focus();
 }
 
