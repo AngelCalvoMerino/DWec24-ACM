@@ -19,6 +19,9 @@
         #anadirCurso {
             display: none;
         }
+        #errorDias {
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -37,7 +40,7 @@
 
             <!-- NIF -->
             <label for="nif">Introduce tu NIF</label>
-            <input type="text" name="nif" id="nif" pattern="[0-9]{8}[A-Z]" required/>
+            <input type="text" name="nif" id="nif" maxlength="9" pattern="[0-9]{8}[A-Z]" required/>
             </br></br>
 
             <!-- Mensaje -->
@@ -94,17 +97,19 @@
             <!-- Días disponibles -->
             <label for="disponibilidad">Selecciona los días con disponibilidad</label>
             </br>
-            <input type="checkbox" class="dia" name="lunes">Lunes
+            <input type="checkbox" class="dia" name="dia">Lunes
             </br>
-            <input type="checkbox" class="dia" name="martes">Martes
+            <input type="checkbox" class="dia" name="dia">Martes
             </br>
-            <input type="checkbox" class="dia" name="miercoles">Miércoles
+            <input type="checkbox" class="dia" name="dia">Miércoles
             </br>
-            <input type="checkbox" class="dia" name="jueves">Jueves
+            <input type="checkbox" class="dia" name="dia">Jueves
             </br>
-            <input type="checkbox" class="dia" name="viernes">Viernes
+            <input type="checkbox" class="dia" name="dia">Viernes
             </br>
             <input type="checkbox" id="todos" name="todos" onclick="seleccionarTodo()">Seleccionar/deseleccionar todos los días
+            </br>
+            <p id="errorDias"></p>
             </br></br>
 
             <!-- Día preferente -->
@@ -124,6 +129,161 @@
             <input type="button" id="google" value="Haz click sobre mí" onclick="window.location.href='https://www.google.com'"/>
         </fieldset>
     </form>
-    <script src="202ACM.js"></script>
+    <script>
+        //Contador caracteres
+        const mensaje = document.getElementById('mensaje');
+        const contador = document.getElementById('contador');
+        mensaje.addEventListener('input', function(e) {
+            const target = e.target;
+            const longitudAct = target.value.length;
+            contador.innerHTML = `Caracteres restantes:${500 - longitudAct}`;
+        });
+
+        //Añadir curso
+        function nuevoCurso() {
+            var cursos = document.getElementById("cursos");
+            var anadirCurso = document.getElementById("anadirCurso");
+            if (cursos.value === "anadir") {
+                anadirCurso.style.display = "block";
+            } else {
+                anadirCurso.style.display = "none";
+            }
+        }
+
+        document.getElementById("incluir").addEventListener("click", function() {
+            var nuevoCurso = document.getElementById("curso").value;
+            var cursos = document.getElementById("cursos");
+            if (nuevoCurso.trim() !== "") {
+                var option = document.createElement("option");
+                option.text = nuevoCurso;
+                option.value = nuevoCurso;
+                cursos.add(option);
+                document.getElementById("curso").value = "";
+                document.getElementById("anadirCurso").style.display = "none";
+            } else {
+                alert("No se puede añadir un campo vacío");
+            }
+        });
+
+        //Seleccionar/deseleccionar todo
+        function seleccionarTodo() {
+            var dias = document.getElementsByClassName("dia");
+            var seleccionarTodos = document.getElementById("todos");
+            for (var i = 0; i < dias.length; i++) {
+            dias[i].checked = seleccionarTodos.checked;
+            }
+        }
+
+        //Validación
+        window.onload = iniciar;
+        function iniciar() {
+            document.getElementById("enviar").addEventListener("click", validar, false);
+        }
+
+        function validarNombre() {
+            var elemento = document.getElementById("nombre");
+            if (!elemento.checkValidity()) {
+                if (elemento.validity.valueMissing) {
+                    error(elemento, "No puede dejar el nombre vacío");
+                }
+                return false;
+            }
+            return true;
+        }
+
+        function validarNIF() {
+            var elemento = document.getElementById("nif");
+            if (!elemento.checkValidity()) {
+                if (elemento.validity.valueMissing) {
+            error(elemento, "No puede dejar el NIF vacío");
+                }
+                if (elemento.validity.patternMismatch) {
+                    error(elemento, "El NIF tiene que ser 8 números seguidos de una letra");
+                }
+                return false;
+            } else {
+                var dni = elemento.value.substr(0, 8);
+                var letra = elemento.value.substr(8).toUpperCase();
+                var letras = 'TRWAGMYFPDXBNJZSQVHLCKE';
+                var letraCorrecta = letras.charAt(dni % 23);
+                if (letra !== letraCorrecta) {
+                    error(elemento, "La letra del NIF no es correcta");
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function validarMensaje(){
+            var elemento = document.getElementById("mensaje")
+            if(!elemento.checkValidity()){
+                if(elemento.validity.valueMissing){
+                    error(elemento, "No puede dejar el mensaje vacío")
+                } else if(elemento.value.length < 2) {
+                    error(elemento, "Mínimo 2 caracteres");
+                }
+                return false
+            }
+            return true
+        }
+
+        function validarFechaMatriculacion() {
+            var elemento = document.getElementById("fecha");
+            if (!elemento.checkValidity()) {
+                if (elemento.validity.valueMissing) {
+                    error(elemento, "No puede dejar la fecha de matriculación vacía");
+                }
+                return false;
+            }
+            return true;
+        }
+
+        function validarDiasDisponibles() {
+            var elemento = document.getElementsByName("dia");
+            var diasMarcados = 0;
+            for (var i = 0; i < elemento.length; i++) {
+                if (elemento[i].checked) {
+                    diasMarcados++;
+                }
+            }
+            if (diasMarcados < 2) {
+                var mensajeError = document.getElementById("errorDias");
+                mensajeError.innerHTML = "Debe seleccionar al menos dos días";
+                return false;
+            } else {
+                var mensajeError = document.getElementById("errorDias");
+                mensajeError.innerHTML = "";
+            }
+            return true;
+        }
+        var elemento = document.getElementsByName("dia");
+        for (var i = 0; i < elemento.length; i++) {
+            elemento[i].addEventListener("change", validarDiasDisponibles);
+        }
+
+        function validar(e) {
+            borrarError();
+            if (validarNombre() && validarNIF() && validarMensaje() && validarFechaMatriculacion() && validarDiasDisponibles() && confirm("¿Enviar formulario?")) {
+                return true;
+            } else {
+                e.preventDefault();
+                return false;
+            }
+        }
+
+        function error(elemento, mensaje) {
+            alert(mensaje);
+            elemento.focus();
+        }
+
+        function borrarError() {
+            var formulario = document.forms[0];
+            for (var i=0; i<formulario.elements.length; i++) {
+                if (formulario.elements[i].type !== "checkbox") {
+                    formulario.elements[i].className="";
+                }
+            }
+        }
+    </script>
 </body>
 </html>
