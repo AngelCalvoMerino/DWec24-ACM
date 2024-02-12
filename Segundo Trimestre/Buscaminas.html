@@ -19,48 +19,129 @@
             font-size: 17px;
             background-color: #EDEDED;
         }
-        td:hover {
-            background-color: #E5E5E5;
+
+        .expandida {
+            background-color: #555;
+        }
+
+        .bomba-explotada {
+            background-color: red;
         }
     </style>
 </head>
 <body>
 
 <script>
-    function crearTablero(filas, columnas) {
+    function crearTablero(filas, columnas, numBombas) {
         const tablero = document.getElementById('tablero');
 
+        // Crear un array para representar el tablero
+        const tableroArray = [];
         for (let i = 0; i < filas; i++) {
-            const fila = document.createElement('tr');
+            tableroArray[i] = [];
+            for (let j = 0; j < columnas; j++) {
+                tableroArray[i][j] = { valor: 0, mostrado: false }; // Inicialmente ninguna celda está mostrada
+            }
+        }
 
+        // Colocar bombas aleatoriamente
+        let bombasColocadas = 0;
+        while (bombasColocadas < numBombas) {
+            const fila = Math.floor(Math.random() * filas);
+            const columna = Math.floor(Math.random() * columnas);
+
+            if (tableroArray[fila][columna].valor !== 9) {
+                tableroArray[fila][columna].valor = 9; // 9 indica que hay una bomba en esta celda
+                bombasColocadas++;
+            }
+        }
+
+        // Calcular el número de bombas alrededor de cada celda
+        for (let i = 0; i < filas; i++) {
+            for (let j = 0; j < columnas; j++) {
+                if (tableroArray[i][j].valor !== 9) {
+                    let bombasCerca = 0;
+                    // Verificar las celdas vecinas
+                    for (let m = -1; m <= 1; m++) {
+                        for (let n = -1; n <= 1; n++) {
+                            const filaVecina = i + m;
+                            const columnaVecina = j + n;
+                            if (filaVecina >= 0 && filaVecina < filas && columnaVecina >= 0 && columnaVecina < columnas) {
+                                if (tableroArray[filaVecina][columnaVecina].valor === 9) {
+                                    bombasCerca++;
+                                }
+                            }
+                        }
+                    }
+                    tableroArray[i][j].valor = bombasCerca;
+                }
+            }
+        }
+
+        // Generar el HTML del tablero
+        for (let i = 0; i < filas; i++) {
+            const filaElemento = document.createElement('tr');
             for (let j = 0; j < columnas; j++) {
                 const celda = document.createElement('td');
-                celda.textContent = ' ';
-                celda.addEventListener('contextmenu', function(event) {
-                    event.preventDefault();
-                    colocarBandera(celda);
-                });
-                fila.appendChild(celda);
+                celda.dataset.fila = i;
+                celda.dataset.columna = j;
+                if (tableroArray[i][j].valor === 9) { // Si hay bomba en esta celda
+                    celda.classList.add('bomba');
+                    celda.addEventListener('click', function() {
+                        mostrarCelda(tableroArray, i, j);
+                        celda.classList.add('bomba-explotada');
+                    });
+                }
+                filaElemento.appendChild(celda);
             }
+            tablero.appendChild(filaElemento);
+        }
 
-            tablero.appendChild(fila);
+        // Agregar eventos de clic a las celdas
+        tablero.addEventListener('click', function(event) {
+            const fila = parseInt(event.target.dataset.fila);
+            const columna = parseInt(event.target.dataset.columna);
+            if (!isNaN(fila) && !isNaN(columna) && !tableroArray[fila][columna].mostrado) {
+                mostrarCelda(tableroArray, fila, columna);
+            }
+        });
+    }
+
+    function mostrarCelda(tableroArray, fila, columna) {
+        const celda = document.querySelector(`[data-fila="${fila}"][data-columna="${columna}"]`);
+        if (!celda) return; // La celda no existe
+
+        tableroArray[fila][columna].mostrado = true;
+
+        if (tableroArray[fila][columna].valor === 0) {
+            celda.textContent = '';
+            celda.classList.add('expandida');
+            for (let m = -1; m <= 1; m++) {
+                for (let n = -1; n <= 1; n++) {
+                    const filaVecina = fila + m;
+                    const columnaVecina = columna + n;
+                    if (filaVecina >= 0 && filaVecina < tableroArray.length && columnaVecina >= 0 && columnaVecina < tableroArray[0].length) {
+                        if (!tableroArray[filaVecina][columnaVecina].mostrado) {
+                            mostrarCelda(tableroArray, filaVecina, columnaVecina);
+                        }
+                    }
+                }
+            }
+        } else {
+            celda.textContent = tableroArray[fila][columna].valor === 9 ? '' : tableroArray[fila][columna].valor;
         }
     }
 
     function iniciarJuego() {
         const filas = prompt('Ingrese el número de filas y columnas:');
         const numFilas = parseInt(filas);
+        const numBombas = Math.floor(numFilas * numFilas / 10); // 1 bomba por cada 10 casillas
 
         if (!isNaN(numFilas)) {
-            crearTablero(numFilas, numFilas);
+            crearTablero(numFilas, numFilas, numBombas);
         } else {
             alert('Por favor, ingrese un número válido de filas y columnas.');
         }
-    }
-
-    function colocarBandera(celda) {
-        // Cambiar el contenido de la celda a una imagen
-        celda.innerHTML = '<img src="https://cdn-icons-png.flaticon.com/512/1378/1378583.png" width="17px" height="17px">';
     }
 
     window.onload = iniciarJuego;
