@@ -26,12 +26,21 @@
 
         .bomba-explotada {
             background-color: red;
+            background-image: url('https://minesweeper.us/media/bomba.png');
+            background-size: cover;
+        }
+
+        .bandera {
+            background-image: url('https://cdn-icons-png.flaticon.com/512/1378/1378583.png');
+            background-size: cover;
         }
     </style>
 </head>
 <body>
 
 <script>
+    let banderasColocadas = [];
+
     function crearTablero(filas, columnas, numBombas) {
         const tablero = document.getElementById('tablero');
 
@@ -40,7 +49,7 @@
         for (let i = 0; i < filas; i++) {
             tableroArray[i] = [];
             for (let j = 0; j < columnas; j++) {
-                tableroArray[i][j] = { valor: 0, mostrado: false }; // Inicialmente ninguna celda está mostrada
+                tableroArray[i][j] = { valor: 0, mostrado: false, bandera: false }; // Inicialmente ninguna celda está mostrada ni tiene bandera
             }
         }
 
@@ -92,6 +101,10 @@
                         celda.classList.add('bomba-explotada');
                     });
                 }
+                celda.addEventListener('contextmenu', function(event) {
+                    event.preventDefault();
+                    toggleBandera(tableroArray, i, j);
+                });
                 filaElemento.appendChild(celda);
             }
             tablero.appendChild(filaElemento);
@@ -101,7 +114,7 @@
         tablero.addEventListener('click', function(event) {
             const fila = parseInt(event.target.dataset.fila);
             const columna = parseInt(event.target.dataset.columna);
-            if (!isNaN(fila) && !isNaN(columna) && !tableroArray[fila][columna].mostrado) {
+            if (!isNaN(fila) && !isNaN(columna) && !tableroArray[fila][columna].mostrado && !tableroArray[fila][columna].bandera) {
                 mostrarCelda(tableroArray, fila, columna);
             }
         });
@@ -121,14 +134,32 @@
                     const filaVecina = fila + m;
                     const columnaVecina = columna + n;
                     if (filaVecina >= 0 && filaVecina < tableroArray.length && columnaVecina >= 0 && columnaVecina < tableroArray[0].length) {
-                        if (!tableroArray[filaVecina][columnaVecina].mostrado) {
+                        if (!tableroArray[filaVecina][columnaVecina].mostrado && !tableroArray[filaVecina][columnaVecina].bandera) {
                             mostrarCelda(tableroArray, filaVecina, columnaVecina);
                         }
                     }
                 }
             }
+        } else if (tableroArray[fila][columna].valor === 9) {
+            celda.classList.add('bomba-explotada');
         } else {
             celda.textContent = tableroArray[fila][columna].valor === 9 ? '' : tableroArray[fila][columna].valor;
+        }
+    }
+
+    function toggleBandera(tableroArray, fila, columna) {
+        const celda = document.querySelector(`[data-fila="${fila}"][data-columna="${columna}"]`);
+        if (!celda) return; // La celda no existe
+
+        if (!tableroArray[fila][columna].mostrado) {
+            tableroArray[fila][columna].bandera = !tableroArray[fila][columna].bandera;
+            if (tableroArray[fila][columna].bandera) {
+                celda.classList.add('bandera');
+                banderasColocadas.push({ fila, columna });
+            } else {
+                celda.classList.remove('bandera');
+                banderasColocadas = banderasColocadas.filter(bandera => !(bandera.fila === fila && bandera.columna === columna));
+            }
         }
     }
 
