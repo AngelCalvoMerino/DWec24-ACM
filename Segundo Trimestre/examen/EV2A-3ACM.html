@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--Ángel Calvo Merino-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    }
+
+    .container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    }
+ 
+    form {
+    display: flex;
+    flex-direction: column;
+    }
+
+    label {
+    margin-bottom: 5px;
+    }
+ 
+    input, button {
+    margin-bottom: 10px;
+    padding: 8px;
+    }
+ 
+    button {
+    background-color: #620af0;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    }
+
+    button:hover {
+    background-color: #5445a0;
+    }
+
+    .error {
+    color: #ff0000;
+    font-size: 14px;
+    }
+    </style>
+    <title>Formulario de Registro Examen </title>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Formulario de Registro</h2>
+        <form id="formRegistro">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" pattern="[A-Za-z]+" required>
+
+            <label for="email">Correo electrónico:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="telefono">Número de teléfono:</label>
+            <input type="text" id="telefono" name="telefono" minlength="9" maxlength="9" pattern="[0-9]{9}" required>
+
+            <label for="contrasena">Contraseña:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="confirmarcontrasena">Confirmar contraseña:</label>
+            <input type="password" id="confirmarpassword" name="confirmarpassword" required>
+
+            <button type="submit" id="registro">Registro</button>
+ 
+</form>
+<div id="messages"></div>
+</div>
+
+    <script>
+    //Validación
+    window.onload = iniciar;
+        function iniciar() {
+            document.getElementById("registro").addEventListener("click", validar, false);
+        }
+
+    //Validar nombre
+    function validarNombre() {
+            var elemento = document.getElementById("nombre");
+            if (!elemento.checkValidity()) {
+                //comprobación nombre vacío
+                if (elemento.validity.valueMissing) {
+                    document.getElementById("messages").innerHTML = "No puede dejar el nombre vacío";
+                }
+                //comprobación algo que no sean letras
+                if (elemento.validity.patternMismatch) {
+                    document.getElementById("messages").innerHTML = "Debe contener solo letras sin espacios";
+                } return false;
+            }
+            return true;
+        }
+
+    //Validar correo
+    function validarCorreo() {
+            var elemento = document.getElementById("email");
+            if (!elemento.checkValidity()) {
+                //comprobación correo vacío
+                if (elemento.validity.valueMissing) {
+                    document.getElementById("messages").innerHTML = "No puede dejar el correo vacío";
+                }
+                //comprobación correo inválido
+                if (!/^\S+@\S+\.\S+$/.test(elemento)) {
+                    document.getElementById("messages").innerHTML = "correo electrónico inválido";
+                } return false;
+            }
+            return true;
+        }
+  
+    //Validar teléfono
+    function validarTelefono() {
+        var elemento = document.getElementById("telefono");
+            if (!elemento.checkValidity()) {
+                //comprobación telefono vacío
+                if (elemento.validity.valueMissing) {
+                    document.getElementById("messages").innerHTML = "No puede dejar el teléfono vacío";
+                }
+                //comprobación solo 9 números
+                if (elemento.validity.patternMismatch) {
+                    document.getElementById("messages").innerHTML = "El teléfono tiene que tener 9 números";
+                } return false;
+            }
+            return true;
+        }
+
+    //Validar contraseña
+    function validarContrasena() {
+            var elemento = document.getElementById("password");
+            if (!elemento.checkValidity()) {
+                //comprobación contraseña vacío
+                if (elemento.validity.valueMissing) {
+                    document.getElementById("messages").innerHTML = "No puede dejar la contraseña vacía";
+                }
+                //comprobación
+                if (elemento.length < 8 || !/[a-z]/.test(elemento) || !/[A-Z]/.test(elemento) || !/\d/.test(elemento)) {
+                    document.getElementById("messages").innerHTML = "Contraseña inválida";
+                } return false;
+            }
+            return true;
+        }
+
+    //Validar confirmación contraseña
+    function validarConfirmacionContrasena() {
+        var elemento = document.getElementById("confirmarpassword");
+        var elemento2 = document.getElementById("password");
+        if (!elemento.checkValidity()) {
+            if (elemento.value != elemento2.value) {
+            document.getElementById("messages").innerHTML = "Las contraseñas no coinciden";
+            } return false;
+        }
+        return true;
+    }
+
+        //solo se envía si todo está validado
+        function validar(e) {
+            borrarError();
+            if (validarNombre() && validarCorreo() && validarTelefono() && validarContrasena() &&validarConfirmacionContrasena() && confirm("¿Enviar formulario?")) {
+                return true;
+            } else {
+                e.preventDefault();
+                return false;
+            }
+        }
+
+        //errores
+        function error(elemento, mensaje) {
+            alert(mensaje);
+            elemento.focus();
+        }
+
+        //borados de errores
+        function borrarError() {
+            var formulario = document.forms[0];
+            for (var i=0; i<formulario.elements.length; i++) {
+                if (formulario.elements[i].type !== "checkbox") {
+                    formulario.elements[i].className="";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

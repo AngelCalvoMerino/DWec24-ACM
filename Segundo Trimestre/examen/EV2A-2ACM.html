@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--Ángel Calvo Merino-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //Clase Animal
+        class Animal {
+            //Propiedades de los animales
+            constructor(nombre, edad, patas, especie, estado) {
+            this.nombre = nombre;
+            this.edad = edad;
+            this.patas = patas;
+            this.especie = especie;
+            this.estado = estado;
+            }
+
+            //Método introduce()
+            introduce() {
+            return `Nombre: ${this.nombre} , Edad: ${this.edad}`;
+            }
+        }
+
+        //Clase Tiburon que hereda de la clase Animal
+        class Tiburon extends Animal {
+            //Argumentos aceptados de la clase Animal
+            constructor(nombre, edad, estado) {
+                super(nombre, edad, estado);
+                //Especie de tiburón
+                this.especie = "Escualos";
+            }
+        }
+
+        //Clase Gato que hereda de la clase Animal 
+        class Gato extends Animal {
+            //Argumentos aceptados de la clase Animal
+            constructor(nombre, edad, estado) {
+                super(nombre, edad, estado);
+                //Especie de gato
+                this.especie = "Felinos";
+            }
+
+            //Método introduce() original añadiendo ¡Miau, miau!
+            introduce() {
+                return `${super.introduce()}  ¡Miau, miau!`;
+            }
+        }
+
+        //Clase Perro que hereda de Animal
+        class Perro extends Animal {
+            //Argumentos aceptados de la clase Animal más el dueño
+            constructor(nombre, edad, estado, dueño) {
+                super(nombre, edad, estado);
+                //Especie de perro
+                this.especie = "Canidos";
+                this.dueño = dueño;
+            }
+
+            //Saludo al dueño del perro
+            saludaDueño() {
+                return `Hola ${this.dueño}`;
+            }
+        }
+
+        //Creación de animales
+        var tiburon = new Tiburon("Chum", 5, "hambriento");
+        var gato = new Gato("Silvestre", 3, "juguetón");
+        var perro = new Perro("Cane", 2, "feliz", "Pepe");
+
+        //Ver en consola
+        console.log(tiburon.introduce());
+        console.log(gato.introduce());
+        console.log(perro.introduce());
+        console.log(perro.saludaDueño());
+    </script>
+</body>
+</html>
