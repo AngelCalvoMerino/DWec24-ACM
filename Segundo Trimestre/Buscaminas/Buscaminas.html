@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscaminas</title>
+    <style>
+        html {
+            color-scheme: dark;
+            font-family: candara;
+            font-size: 150%;
+        }
+        
+        body {
+            margin: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        input {
+            font-size: 20px;
+            padding: 2px 5px;
+        }
+
+        button {
+            font-size: 20px;
+            padding: 10px 25px;
+        }
+
+        #contenedor {
+            text-align: center;
+        }
+
+        table {
+            border-collapse: collapse;
+            border: 2px solid #D1D1D1;
+        }
+
+        td {
+            width: 30px;
+            height: 30px;
+            border: 3px solid #D1D1D1;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 17px;
+            background-color: #808080;
+        }
+
+        input {
+            width: 100%;
+        }
+
+        .expandida {
+            background-color: #3D3D3D;
+        }
+
+        td:hover {
+            background-color: #BCBCBC;
+        }
+
+        .bomba-explotada {
+            background-color: red;
+            background-image: url('bomba.png');
+            background-size: cover;
+        }
+
+        .bandera {
+            background-image: url('bandera.png');
+            background-size: cover;
+        }
+
+        #contador {
+            margin-top: 20px;
+        }
+
+        #requisito {
+            font-size: 70%;
+            color: #D86161;
+        }
+
+        .oculto {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="contenedor">
+        <h1>BUSCAMINAS</h1>
+        <div id="configuracion">
+            <label for="elegirFilas">Filas:</label>
+            <br>
+            <label for="elegirFilas" id="requisito">Mínimo 5; Máximo 25</label>
+            <input type="number" id="elegirFilas" min="5" max="25">
+            <br><br>
+            <label for="elegirColumnas">Columnas:</label>
+            <br>
+            <label for="elegirColumnas" id="requisito">Mínimo 5; Máximo 25</label>
+            <input type="number" id="elegirColumnas" min="5" max="25">
+            <br><br>
+            <label for="elegirBombas">Bombas:</label>
+            <br>
+            <label for="elegirBombas" id="requisito">Mínimo 3; Máximo todas las celdas menos 1</label>
+            <input type="number" id="elegirBombas" min="3">
+            <br><br>
+            <button onclick="iniciarJuego()">Iniciar</button>
+            <br><br>
+        </div>
+        <div id="contadorBombas"></div>
+        <br><br>
+
+        <table id="tablero"></table>
+    </div>
+
+<script>
+    let banderasColocadas = []; //Almacenar posiciones de banderas
+    let juegoTerminado = false; //Estado del juego
+    let bombasRestantes; //Almacenar bombas restantes
+
+    //Generar tablero de juego
+    function generarTablero(filas, columnas, numBombas) {
+        const tablero = document.getElementById('tablero');
+        tablero.innerHTML = ''; // Limpiar el tablero anterior
+
+        //Crear un array para representar el tablero
+        const tableroArray = [];
+        for (let i = 0; i < filas; i++) {
+            tableroArray[i] = [];
+            for (let j = 0; j < columnas; j++) {
+                tableroArray[i][j] = { valor: 0, mostrado: false, bandera: false }; //Inicialmente ninguna celda está mostrada ni tiene bandera
+            }
+        }
+
+        bombasRestantes = numBombas;
+
+        //Colocar bombas aleatoriamente
+        let bombasColocadas = 0;
+        while (bombasColocadas < numBombas) {
+            const fila = Math.floor(Math.random() * filas);
+            const columna = Math.floor(Math.random() * columnas);
+
+            if (tableroArray[fila][columna].valor !== 9) {
+                tableroArray[fila][columna].valor = 9; //9 indica que hay una bomba en esta celda
+                bombasColocadas++;
+            }
+        }
+
+        //Calcular el número de bombas alrededor de cada celda
+        for (let i = 0; i < filas; i++) {
+            for (let j = 0; j < columnas; j++) {
+                if (tableroArray[i][j].valor !== 9) {
+                    let bombasCerca = 0;
+                    //Verificar las celdas vecinas
+                    for (let m = -1; m <= 1; m++) {
+                        for (let n = -1; n <= 1; n++) {
+                            const filaVecina = i + m;
+                            const columnaVecina = j + n;
+                            if (filaVecina >= 0 && filaVecina < filas && columnaVecina >= 0 && columnaVecina < columnas) {
+                                if (tableroArray[filaVecina][columnaVecina].valor === 9) {
+                                    bombasCerca++;
+                                }
+                            }
+                        }
+                    }
+                    tableroArray[i][j].valor = bombasCerca;
+                }
+            }
+        }
+
+        //Generar el HTML del tablero
+        for (let i = 0; i < filas; i++) {
+            const filaElemento = document.createElement('tr');
+            for (let j = 0; j < columnas; j++) {
+                const celda = document.createElement('td');
+                celda.dataset.fila = i;
+                celda.dataset.columna = j;
+                //Si hay bomba en esta celda mostrar todas las bombas y mensaje de derrota
+                if (tableroArray[i][j].valor === 9) { 
+                    celda.classList.add('bomba');
+                    celda.addEventListener('click', function() {
+                        mostrarCelda(tableroArray, i, j);
+                        mostrarTodasLasBombas(tableroArray);
+                        juegoTerminado = true;
+                        alertaDerrota();
+                    });
+                }
+                //Poner y quitar banderas
+                celda.addEventListener('contextmenu', function(event) {
+                    event.preventDefault();
+                    toggleBandera(tableroArray, i, j);
+                });
+                filaElemento.appendChild(celda);
+            }
+            tablero.appendChild(filaElemento);
+        }
+
+        //Agregar eventos de click a las celdas
+        tablero.addEventListener('click', function(event) {
+            if (juegoTerminado) return;
+            const fila = parseInt(event.target.dataset.fila);
+            const columna = parseInt(event.target.dataset.columna);
+            if (!isNaN(fila) && !isNaN(columna) && !tableroArray[fila][columna].mostrado && !tableroArray[fila][columna].bandera) {
+                mostrarCelda(tableroArray, fila, columna);
+            }
+        });
+        actualizarContador();
+    }
+
+    //Mostrar celda del tablero
+    function mostrarCelda(tableroArray, fila, columna) {
+        if (juegoTerminado) return;
+        const celda = document.querySelector(`[data-fila="${fila}"][data-columna="${columna}"]`);
+        if (!celda) return;
+
+        tableroArray[fila][columna].mostrado = true;
+
+        //Expandir celdas vecinas vacías de la celda seleccionada
+        if (tableroArray[fila][columna].valor === 0) {
+            celda.textContent = '';
+            celda.classList.add('expandida');
+            for (let m = -1; m <= 1; m++) {
+                for (let n = -1; n <= 1; n++) {
+                    const filaVecina = fila + m;
+                    const columnaVecina = columna + n;
+                    if (filaVecina >= 0 && filaVecina < tableroArray.length && columnaVecina >= 0 && columnaVecina < tableroArray[0].length) {
+                        if (!tableroArray[filaVecina][columnaVecina].mostrado && !tableroArray[filaVecina][columnaVecina].bandera) {
+                            mostrarCelda(tableroArray, filaVecina, columnaVecina);
+                        }
+                    }
+                }
+            }
+        } else if (tableroArray[fila][columna].valor === 9) {
+            celda.classList.add('bomba-explotada');
+        } else {
+            //Mostrar número de bombas cercanas de la celda
+            celda.textContent = tableroArray[fila][columna].valor === 9 ? '' : tableroArray[fila][columna].valor;
+            celda.classList.add('expandida'); //Añadir celdas con número a la clase expandida
+        }
+
+        verificarVictoria(tableroArray); //Verificar victoria después de cada click
+    }
+
+    //Añadir y quitar banderas
+    function toggleBandera(tableroArray, fila, columna) {
+        if (juegoTerminado) return;
+        const celda = document.querySelector(`[data-fila="${fila}"][data-columna="${columna}"]`);
+        if (!celda) return;
+
+        if (!tableroArray[fila][columna].mostrado) {
+            tableroArray[fila][columna].bandera = !tableroArray[fila][columna].bandera;
+            if (tableroArray[fila][columna].bandera) {
+                celda.classList.add('bandera'); //Añade bandera
+                banderasColocadas.push({ fila, columna }); //Añade la posición de la bandera al array
+                bombasRestantes--; //Al añadir una bandera resta una bomba al contador
+            } else {
+                celda.classList.remove('bandera'); //Quita bandera
+                banderasColocadas = banderasColocadas.filter(bandera => !(bandera.fila === fila && bandera.columna === columna));
+                bombasRestantes++; //Al quitar una bandera suma una bomba al contador
+            }
+            actualizarContador(); //Actualiza el contador de bombas cada vez que se añade o quita una bandera
+        }
+    }
+
+    //Mostrar todas las bombas cuando se pulsa sobre una
+    function mostrarTodasLasBombas(tableroArray) {
+        tableroArray.forEach((fila, i) => {
+            fila.forEach((celda, j) => {
+                if (celda.valor === 9) {
+                    mostrarCelda(tableroArray, i, j);
+                }
+            });
+        });
+    }
+
+    //Iniciar el juego con la configuración seleccionada
+    function iniciarJuego() {
+        juegoTerminado = false;
+        const filas = parseInt(document.getElementById('elegirFilas').value);
+        const columnas = parseInt(document.getElementById('elegirColumnas').value);
+        const bombas = parseInt(document.getElementById('elegirBombas').value);
+
+        //Validación de la configración
+        if (isNaN(filas) || isNaN(columnas) || isNaN(bombas) || filas < 5 || columnas < 5 || bombas < 3 || filas > 25 || columnas > 25 || bombas > ((filas * columnas) - 1)) {
+            alert("No se cumplen los requisitos");
+            return;
+        }
+
+        //Genera el tablero con la configuración seleccionada
+        generarTablero(filas, columnas, bombas);
+        document.getElementById('configuracion').classList.add('oculto');
+    }
+
+    //Actualizar el contador de bombas
+    function actualizarContador() {
+        document.getElementById('contadorBombas').textContent = `Bombas restantes: ${bombasRestantes}`;
+    }
+
+    //Comprobación de victoria mediante la verificación de que todas las casillas sin bomba están descubiertas 
+    function verificarVictoria(tableroArray) {
+        let victoria = true;
+        tableroArray.forEach((fila) => {
+            fila.forEach((celda) => {
+                if (celda.valor !== 9 && !celda.mostrado) {
+                    victoria = false;
+                }
+            });
+        });
+
+        if (victoria) {
+            juegoTerminado = true;
+            setTimeout(function() {
+                alert("Has ganado"); //Mensaje de victoria
+                location.reload(); //Recarga la página
+            }, 100);
+        }
+    }
+
+    function alertaDerrota() {
+        setTimeout(function() {
+            alert("Has perdido"); //Mensaje de derrota
+            location.reload(); //Recarga la página
+        }, 100);
+    }
+</script>
+</body>
+</html>
