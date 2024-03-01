@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Ángel Calvo Merino-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Contacto</title>
+    <style>
+        /* Reset de estilos para limpiar márgenes y padding */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #0066cc;
+    margin-top: 20px;
+}
+
+form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+select,
+textarea,
+input[type="email"],
+input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+ul {
+    list-style: none;
+    margin-bottom: 16px;
+}
+
+ul li {
+    margin-bottom: 8px;
+}
+
+.errorSpam {
+    color: red;
+    font-size: 12px;
+}
+
+input[type="submit"] {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+    </style>
+</head>
+<body>
+  
+    <h1 id="idTitulo">¡Bienvenido al Formulario de Contacto!</h1>
+
+    <form id="miFormulario" action="#" method="post">     
+
+        <label for="idNombre">Nombre:</label>
+        <input type="text" name="nombre" id="idNombre" required maxlength="30" />
+        <span id="idNombreError" class="errorSpam"></span>
+
+        <label for="idEdad">Edad:</label>
+        <input type="number" name="edad" id="idEdad" required min="18" max="99" />
+        <span id="idEdadError" class="errorSpam"></span>
+
+        <label for="idEmail">Correo Electrónico</label>
+        <input type="email" name="email" id="idEmail" />
+        <span id="idEmailError" class="errorSpam"></span>
+
+        <label for="idFechaNacimiento">Fecha de Nacimiento:</label>
+        <input type="date" name="fechaNacimiento" id="idFechaNacimiento" />
+        <span id="idEdadFechaNacimiento" class="errorSpam"></span>
+
+        <label for="idPais">País:</label>
+        <select name="pais" id="idPais" required>
+            <option value="" disabled selected>Selecciona tu país</option>
+            <option value="espana">España</option>
+            <option value="mexico">México</option>
+            <option value="argentina">Argentina</option>
+            <option value="otro">Otro</option>            
+        </select>
+        <span id="idPaisError" class="errorSpam"></span>
+
+        <label for="idIntereses">Intereses:</label>
+        <ul>
+            <li><input type="checkbox" name="interes" value="deportes"> Deportes</li>
+            <li><input type="checkbox" name="interes" value="musica"> Música</li>
+            <li><input type="checkbox" name="interes" value="viajes"> Viajes</li>
+            <li><input type="checkbox" name="interes" value="y-mas"> Y mas</li>            
+        </ul>
+        <span id="idInteresesError" class="errorSpam"></span>
+
+        <label for="idObservaciones">Observaciones:</label>
+        <textarea name="observaciones" id="idObservaciones" rows="4" cols="50"></textarea>
+
+        <input type="submit" value="Enviar">
+
+    </form>
+    
+    <script>
+        //Validación
+    window.onload = iniciar;
+        function iniciar() {
+            document.getElementById("miFormulario").addEventListener("click", validar, false);
+        }
+
+        //Validar nombre
+        function validarNombre() {
+            var elemento = document.getElementById("idNombre");
+            if (!elemento.checkValidity()) {
+                //comprobación nombre vacío
+                if (elemento.validity.valueMissing) {
+                    document.getElementById("idNombreError").innerHTML = "No puede dejar el nombre vacío";      
+                }
+                
+                //comprobación en el pattern
+                if (elemento.validity.patternMismatch) {
+                    document.getElementById("idNombreError").innerHTML = "Máximo 30 caracteres";
+                }
+                return false;
+            }
+            return true;
+        }
+
+        //Validar edad
+        function validarEdad() {
+            var elemento = document.getElementById("idEdad");
+            if (!elemento.checkValidity()) {
+                //comprobación edad vacía
+                if (elemento.validity.valueMissing) {
+                    document.getElementById("idEdadError").innerHTML = "No puede dejar la edad vacía";                    
+                }
+                return false;
+                //comprobación requisitos
+                if (elemento.value < 18 || elemento.value > 99) {
+                    document.getElementById("idEdadError").innerHTML = "Mínimo 18 y máximo 99";
+                }
+                return false;
+            }
+            return true;
+        }
+
+        //Validar correo
+        function validarCorreo() {
+            var elemento = document.getElementById("idEmail");
+            if (!elemento.checkValidity()) {
+                //comprobación correo vacío
+                if (elemento.validity.valueMissing) {
+                    document.getElementById("idEmailError").innerHTML = "No puede dejar el correo vacío";
+                }
+                //comprobación correo inválido
+                if (!/^\S+@\S+\.\S+$/.test(elemento)) {
+                    document.getElementById("idEmailError").innerHTML = "correo electrónico inválido";
+                } return false;
+            }
+            return true;
+        }
+
+        //Validar fecha nacimiento
+        function validarFechaNacimiento() {
+            var elemento = document.getElementById("idFechaNacimiento");
+            if (!elemento.checkValidity()) {
+                if (elemento.validity.valueMissing) {
+                    document.getElementById("idEdadFechaNacimiento").innerHTML = "No puede dejar la fecha de nacimiento vacía";
+                }
+                return false;
+            }
+            return true;
+        }
+
+        //Validar intereses
+        function validarIntereses() {
+            var elemento = document.getElementsByName("interes");
+            var interesesMarcados = 0;
+            for (var i = 0; i < elemento.length; i++) {
+                if (elemento[i].checked) {
+                    interesesMarcados++;
+                }
+            }
+            if (interesesMarcados < 1) {
+                var mensajeError = document.getElementById("idInteresesError");
+                mensajeError.innerHTML = "Debe seleccionar al menos un interes";
+                return false;
+            } else {
+                var mensajeError = document.getElementById("idInteresesError");
+                mensajeError.innerHTML = "";
+            }
+            return true;
+        }
+
+        //solo se envía si todo está validado
+        function validar(e) {
+            borrarError();
+            if (validarNombre() && validarEdad() && validarCorreo() && validarFechaNacimiento() && validarIntereses() && confirm("¿Enviar formulario?")) {
+                return true;
+            } else {
+                e.preventDefault();
+                return false;
+            }
+            
+        }
+
+        //errores
+        function error(elemento, mensaje) {
+            alert(mensaje);
+            elemento.focus();
+        }
+
+        //borados de errores
+        function borrarError() {
+            var formulario = document.forms[0];
+            for (var i=0; i<formulario.elements.length; i++) {
+                if (formulario.elements[i].type !== "checkbox") {
+                    formulario.elements[i].className="";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

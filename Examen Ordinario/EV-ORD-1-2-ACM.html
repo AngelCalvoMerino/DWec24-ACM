@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Ángel Calvo Merino-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="textoRevertido"></div>
+    <div id="palindromo"></div>
+    <script>
+        // Función para revertir una cadena de texto
+        function revertirCadena(cadena) {
+        // Dividir la cadena en un array de caracteres, revertir el orden y luego unirlos de nuevo en una cadena
+            return cadena.split('').reverse().join('');
+        }
+
+        // Función principal
+        function main() {
+            // Pedir al usuario que ingrese una cadena de texto
+            let texto = prompt("introduce una cadena de texto:");
+
+        // Revertir la cadena de texto ingresada por el usuario
+        let textoRevertido = revertirCadena(texto);
+
+        // Mostrar la cadena revertida por pantalla
+        document.getElementById("textoRevertido").innerHTML = "La cadena revertida es: " + textoRevertido;
+
+        // Comprobar si la cadena original es un palíndromo
+        if (texto.toLowerCase() === textoRevertido.toLowerCase()) {
+            document.getElementById("palindromo").innerHTML = "La cadena ingresada es un palíndromo";
+        } else {
+            document.getElementById("palindromo").innerHTML = "La cadena ingresada no es un palíndromo";
+        }
+        }
+
+        // Llamar a la función principal
+        main();
+    </script>
+</body>
+</html>
